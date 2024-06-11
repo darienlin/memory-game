@@ -14,7 +14,7 @@ function Card(props){
 
     useEffect(() => {
       // Fetch the Pokemon data and handle the promise
-      fetchPokemon(props.id)
+      fetchPokemon(props.idName)
         .then(response => {
           setPokemon(response.data);  // Update the state with the fetched data
         })
@@ -24,7 +24,7 @@ function Card(props){
     }, []);  // Empty dependency array means this runs once after the initial render
   
     return (
-      <div className='card'>
+      <div className='card' onClick={props.onClick}>
         {pokemon ? (
           <div>
             <img src={pokemon.sprites['front_default']} />
