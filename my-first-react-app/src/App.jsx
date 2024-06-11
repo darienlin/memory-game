@@ -1,43 +1,36 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
 import './App.css'
+import Card from './card/Card.jsx'
 import axios from 'axios';
 
 
-function fetchPokemon() {
-  const url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+function fetchPokemon(x) {
+  const url = 'https://pokeapi.co/api/v2/pokemon/' + x;
   return axios.get(url);
 }
 
 function App() {
-  const [pokemon, setPokemon] = useState(null);  // State to store the fetched Pokemon data
-
-  // Use useEffect to handle side-effects (like fetching data)
-  useEffect(() => {
-    // Fetch the Pokemon data and handle the promise
-    fetchPokemon()
-      .then(response => {
-        setPokemon(response.data);  // Update the state with the fetched data
-      })
-      .catch(error => {
-        console.error('Error fetching Pokemon data:', error);  // Log any errors
-      });
-  }, []);  // Empty dependency array means this runs once after the initial render
-
   return (
-    <div>
-      <h1>Pokemon Info</h1>
-      {pokemon ? (
-        <div>
-          <p>Name: {pokemon.name}</p>
-          <p>Height: {pokemon.height}</p>
-          <p>Weight: {pokemon.weight}</p>
+    <div className='bodyContainer'>
+      <div className='topBar'>
+        <h1>Pokeapi Guessing game</h1>
+        <div className='score'>
+          <div>Current Score</div>
+          <div>High Score</div>
         </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+      </div>
+      <div className='card-container'>
+        <Card id={2} />
+        <Card id={3} />
+        <Card id={4} />
+        <Card id={23} />
+        <Card id={102} />
+
+      </div>
     </div>
-  );
+
+  )
 }
 
 export default App;
