@@ -3,13 +3,29 @@ import Card from '../card/Card.jsx';
 import '../card/card.css'
 
 function getRandomInt(max) {
-    return Math.floor(Math.random() * max) + 1; // +1 to avoid 0 index if using API IDs
+    return Math.floor(Math.random() * max) + 1;
 }
 
-function DivRender() {
+function DivRender(props) {
     const [pokemonId, setPokemonId] = useState([]);
 
-    // Initialize Pokémon IDs on component mount
+    function addUserPokemon(x){
+        if(props.userPokemon.includes(x)){
+            props.setLose(true)
+        }
+        else{
+            let tempPoke = props.userPokemon
+            tempPoke.push(x)
+            props.setUserPokemon(tempPoke);
+            props.setScore(props.score + 1);
+
+            if(props.score == 4)
+                props.setWin(true)
+        }
+
+    }
+
+    // Initialize pokemon ids on component mount
     useEffect(() => {
         let initialPokemonIds = [];
         while (initialPokemonIds.length < 5) {
@@ -21,7 +37,7 @@ function DivRender() {
         setPokemonId(initialPokemonIds);
     }, []);
 
-    // Function to shuffle and re-render Pokémon divs
+    // Function to shuffle and re-render pokemon divs
     const shuffleAndRender = () => {
         let shuffledIds = [...pokemonId];
         for (let i = shuffledIds.length - 1; i > 0; i--) {
@@ -33,13 +49,12 @@ function DivRender() {
         //console.log(renderDivs())
     };
 
-    // Generate divs based on shuffled Pokémon IDs
+    // Generate divs based on shuffled pokemon ids
     const renderDivs = () => {
         const divs = [];
         for (let index = 0; index < pokemonId.length; index++) {
-          divs.push(<Card idName={pokemonId[index]} key={pokemonId[index]} onClick={shuffleAndRender} />);
+          divs.push(<Card idName={pokemonId[index]} key={pokemonId[index]} onClick={() => {shuffleAndRender();addUserPokemon(pokemonId[index])}} />);
         }
-        //divs.push(<div key={6}>{pokemonId}</div>)
         return divs;
     };
 

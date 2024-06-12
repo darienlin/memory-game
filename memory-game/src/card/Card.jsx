@@ -24,7 +24,7 @@ function Card(props){
     }, []);  // Empty dependency array means this runs once after the initial render
   
     return (
-      <div className='card' onClick={props.onClick}>
+      <div className='card' onClick={() => {props.onClick()}}>
         {pokemon ? (
           <div>
             <img src={pokemon.sprites['front_default']} />
