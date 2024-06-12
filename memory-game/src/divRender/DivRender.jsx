@@ -35,7 +35,7 @@ function DivRender(props) {
             }
         }
         setPokemonId(initialPokemonIds);
-    }, []);
+    }, [props.restart]);
 
     // Function to shuffle and re-render pokemon divs
     const shuffleAndRender = () => {
