@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Card from '../card/Card.jsx';
 import '../card/card.css'
 
+var pokeAmt = 10
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max) + 1;
 }
@@ -28,7 +30,7 @@ function DivRender(props) {
     // Initialize pokemon ids on component mount
     useEffect(() => {
         let initialPokemonIds = [];
-        while (initialPokemonIds.length < 5) {
+        while (initialPokemonIds.length < pokeAmt) {
             let num = getRandomInt(100);
             if (!initialPokemonIds.includes(num)) {
                 initialPokemonIds.push(num);
